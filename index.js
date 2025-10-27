@@ -79,14 +79,14 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
 
         Object.entries(fareByClass).forEach(([cls, fares]) => {
             if(fares.length > 0) {
-                const avg = fares.reduce((a, b) => a + b, 0) / fares.length;
-                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`);
-            } else {
-                console.log(`No data for class ${cls}`);
+                const avg = fares.reduce((a, b) => a + b, 0) / fares.length;          // 1: 86.15
+                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`);  // 2: 21.36
+            } else {                                                                          // 3: 13.79
+                console.log(`No data for class ${cls}`);                              // fare a bit higher cause 0 is excluded
             }
         });
         console.log("--------- price range ---------")
-        for (const pclass in fareByClass) {   // исправил имя переменной
+        for (const pclass in fareByClass) {
             const fares = fareByClass[pclass];
             if (fares.length > 0) {
                 const minFare = Math.min(...fares);
@@ -108,8 +108,6 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
                 survived++;
             } else if (v === '0') {
                 notSurvived++;
-            } else {
-                continue;
             }
         }
 
