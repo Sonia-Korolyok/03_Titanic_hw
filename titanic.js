@@ -2,27 +2,27 @@ import fs from 'node:fs';
 
 function parseCSVLine(line) {
     const result = [];
-    let current = '';
+    let tmp = '';
     let inQuotes = false;
 
     for (let i = 0; i < line.length; i++) {
         const char = line[i];
         if (char === '"' && line[i + 1] === '"') { // Экранированная кавычка
-            current += '"';
+            tmp += '"';
             i++;
         } else if (char === '"') {
             inQuotes = !inQuotes;
         } else if (char === ',' && !inQuotes) {
-            result.push(current);
-            current = '';
+            result.push(tmp);
+            tmp = '';
         } else {
-            current += char;
+            tmp += char;
         }
     }
-    result.push(current);
+    result.push(tmp);
     return result;
 }
-
+console.log("====== 1 task ======")
 fs.readFile('./train.csv', 'utf8', (err, data) => {
     if (err) {
         console.error(err);
@@ -44,8 +44,9 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
             return sum + (isNaN(fare) ? 0 : fare);
         }, 0);
 
-        console.log(`Total Fare: ${totalFare.toFixed(2)}`); // 1 task
+        console.log(`Total Fare: ${totalFare.toFixed(2)}`);
 
+        console.log("====== 2 task ======")
         const fareByClass = { 1: [], 2: [], 3: [] };
 
         rows.forEach(row => {
@@ -59,12 +60,13 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
         Object.entries(fareByClass).forEach(([cls, fares]) => {
             if(fares.length > 0) {
                 const avg = fares.reduce((a, b) => a + b, 0) / fares.length;
-                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`); // 2 task
+                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`);
             } else {
                 console.log(`No data for class ${cls}`);
             }
         });
 
+        console.log("====== 3 task ======")
         let survived = 0;
         let notSurvived = 0;
 
@@ -79,8 +81,10 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
             }
         }
 
-        console.log('Survived:', survived);  // 3 task
-        console.log('Not Survived:', notSurvived); // 3 task
+        console.log('Survived:', survived);
+        console.log('Not Survived:', notSurvived);
+
+        console.log("====== 4 task ======")
 
         const groups = {
             men: { survived: 0, died: 0 },
@@ -102,7 +106,7 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
             }
         });
 
-        console.log('Survival by group:', groups); // 4 task
+        console.log('Survival by group:', groups);
 
     }
 });
