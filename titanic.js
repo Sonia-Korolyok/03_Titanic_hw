@@ -23,6 +23,7 @@ function parseCSVLine(line) {
     return result;
 }
 console.log("====== 1 task ======")
+
 fs.readFile('./train.csv', 'utf8', (err, data) => {
     if (err) {
         console.error(err);
@@ -44,9 +45,10 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
             return sum + (isNaN(fare) ? 0 : fare);
         }, 0);
 
-        console.log(`Total Fare: ${totalFare.toFixed(2)}`);
+        console.log(`Total Fare: ${totalFare.toFixed(2)}`); //28693.95
 
         console.log("====== 2 task ======")
+
         const fareByClass = { 1: [], 2: [], 3: [] };
 
         rows.forEach(row => {
@@ -59,9 +61,9 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
 
         Object.entries(fareByClass).forEach(([cls, fares]) => {
             if(fares.length > 0) {
-                const avg = fares.reduce((a, b) => a + b, 0) / fares.length;
-                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`);
-            } else {
+                const avg = fares.reduce((a, b) => a + b, 0) / fares.length;           // 1: 84.15
+                console.log(`Average fare for class ${cls}: ${avg.toFixed(2)}`);   // 2: 20.66
+            } else {                                                                           // 3: 13.68
                 console.log(`No data for class ${cls}`);
             }
         });
@@ -81,15 +83,15 @@ fs.readFile('./train.csv', 'utf8', (err, data) => {
             }
         }
 
-        console.log('Survived:', survived);
-        console.log('Not Survived:', notSurvived);
+        console.log('Survived:', survived);         //342
+        console.log('Not Survived:', notSurvived);  //549
 
         console.log("====== 4 task ======")
 
         const groups = {
-            men: { survived: 0, died: 0 },
-            women: { survived: 0, died: 0 },
-            children: { survived: 0, died: 0 }
+            men: { survived: 0, died: 0 },         //86, 433
+            women: { survived: 0, died: 0 },       //195, 64
+            children: { survived: 0, died: 0 }     //61, 52
         };
 
         rows.forEach(row => {
