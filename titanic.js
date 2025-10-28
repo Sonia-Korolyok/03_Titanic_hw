@@ -3,16 +3,16 @@ import fs from 'node:fs';
 function parseCSVLine(line) {
     const result = [];
     let tmp = '';
-    let inQuotes = false;
+    let inQuotes = false;                       //flag
 
     for (let i = 0; i < line.length; i++) {
         const char = line[i];
-        if (char === '"' && line[i + 1] === '"') { // Экранированная кавычка
+        if (char === '"' && line[i + 1] === '"') {       //checking escaped quotation mark
             tmp += '"';
             i++;
         } else if (char === '"') {
-            inQuotes = !inQuotes;
-        } else if (char === ',' && !inQuotes) {
+            inQuotes = !inQuotes;                        // toggle the quotes flag (in/out)
+        } else if (char === ',' && !inQuotes) {          // comma outside quotation marks (field ending)
             result.push(tmp);
             tmp = '';
         } else {
