@@ -3,11 +3,11 @@ import fs from 'node:fs';
 function parseCSVLine(line) {
     const result = [];
     let tmp = '';
-    let inQuotes = false;                       //flag
+    let inQuotes = false;                       // flag
 
     for (let i = 0; i < line.length; i++) {
         const char = line[i];
-        if (char === '"' && line[i + 1] === '"') {       //checking escaped quotation mark
+        if (char === '"' && line[i + 1] === '"') {       // checking escaped quotation mark
             tmp += '"';
             i++;
         } else if (char === '"') {
